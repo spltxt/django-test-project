@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+ {% block content %}
+ <section class="mb-5">
+
+    <div class="row">
+      <div class="col-md-6 mb-4 mb-md-0">
+
+        <div id="mdb-lightbox-ui"></div>
+
+        <div class="mdb-lightbox">
+
+          <div class="row product-gallery mx-1">
+
+            <div class="col-12 mb-0">
+              <figure class="view overlay rounded z-depth-1 main-img">
+                <a href="{{product.image.url}}"
+                  data-size="710x823">
+                  <img src="{{product.image.url}}"
+                    class="img-fluid z-depth-1">
+                </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="col-md-6">
+
+        <h5>{{product.name}}</h5>
+        <p class="mb-2 text-muted text-uppercase small">Еда и напитки</p>
+        <p><span class="mr-1"><strong>{{product.price}} рублей</strong></span></p>
+        <p class="pt-1">{{product.description}}</p>
+        <hr>
+        {% comment %} <form action="" method="POST"> {% endcomment %}
+    </div>
+    {% if request.user.is_authenticated %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{form|crispy}}
+            <button type="submit" class="btn btn-primary mt-2">Оставить отзыв</button>
+        </form>
+    {% else %}
+        <p>Войдите, чтобы оставить отзыв</p>
+    {% endif %}
+    {% for review in product.reviews.all %}
+        <div class="container">
+            <h2 class="text-center">Отзывы</h2>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="">
+                            <p>
+                                Автор - {{review.author}}
+                        </p>
+                        <div class="clearfix"></div>
+                            <p>
+                                <strong>Добавлено: </strong>{{review.created|date:"Y-m-d"}},
+                                <strong>Рейтинг: </strong>{{review.rating}}
+                            </p>
+
+                            {{review.content}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="notification">
+            Отзывов нет
+        </div>
+    {% endfor %}
+
+
+  </section>
+  {% endblock content %}

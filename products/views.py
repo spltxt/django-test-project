@@ -1,17 +1,35 @@
-from django.shortcuts import render
-from .models import Product
-from django.views.generic import ListView
+from django.shortcuts import redirect, render
 
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-# Create your views here.
+from products.forms import AddReview
+from .models import Product, ProductReview
 
 
 def my_product_view(request):
     product = Product.objects.all()
-    
+
     context = {
-        'product': product
+        'product': product,
     }
 
-    return render (request, 'products/main.html', context)
+    return render(request, 'products/main.html', context)
+
+
+def product_detail_view(request, pk):
+    product = Product.objects.get(id=pk)
+    form = AddReview
+
+    if request.method == "POST":
+        rating = request.POST.get('rating', 3)
+        content = request.POST.get('content', '')
+
+        review = ProductReview.objects.create(product=product,
+                                              author=request.user,
+                                              rating=rating,
+                                              content=content)
+
+    context = {
+        'product': product,
+        'form': form
+    }
+
+    return render(request, 'products/details.html', context)

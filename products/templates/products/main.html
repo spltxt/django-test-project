@@ -12,17 +12,17 @@
     <div class="row">
         {% for item in product %}
             <div class="col-md-4 mt-2">
-                <div class="card">
+                <div class="card" style="width: 26rem;">
                     <div class="card-body">
-                        <div class="card-img-actions"> <img src="{{item.image.url}}" class="card-img img-fluid" width="96" height="350" alt=""> </div>
+                        <div class="card-img-actions"> <img src="{{item.image.url}}" class="card-img" width="96" height="300" alt=""> </div>
                     </div>
                     <div class="card-body bg-light text-center">
                         <div class="mb-2">
-                            <h6 class="font-weight-semibold mb-2"> <a href="#" class="text-default mb-2" data-abc="true">{{item.name}}</a> </h6> <a href="#" class="text-muted" data-abc="true">Еда и напитки</a>
+                            <h6 class="font-weight-semibold "> <a href="{% url 'products:product_detail' item.id %}" class="text-default mb-2" data-abc="true">{{item.name}}</a> </h6> <a href="" class="text-muted" data-abc="true">Еда и напитки</a>
                         </div>
                         <h3 class="mb-0 font-weight-semibold">{{item.price}} Р</h3>
                         <div> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> </div>
-                        <div class="text-muted mb-3">15 reviews</div> <button type="button" class="btn btn-primary"><i class="fa fa-cart-plus mr-2"></i>Добавить в корзину</button>
+                        <div class="text-muted mb-3">Количество отзывов: {{item.review_count}}</div> <button type="button" class="btn btn-primary"><i class="fa fa-cart-plus mr-2"></i>Добавить в корзину</button>
                     </div>
                 </div>
             </div>

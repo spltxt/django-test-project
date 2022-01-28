@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block title %}
-Вход
+Регистрация
 {% endblock title %}
 
 {% block content %}
-
 {% if error_message %}
     <div class="alert alert-danger" role="alert">
         {{error_message}}
@@ -28,6 +27,4 @@
         </div>
     </div>
 </div>
-
 {% endblock content %}
-

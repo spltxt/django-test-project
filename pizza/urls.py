@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import login_view, logout_view
+from .views import login_view, logout_view, registration_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +26,7 @@ urlpatterns = [
     path('my_profile', include('profiles.urls', namespace='profiles')),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
+    path('registration/', registration_view, name='registration'),
     path('', include('products.urls', namespace='products'))
 ]
 
