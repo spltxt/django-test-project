@@ -1,10 +1,11 @@
 # myproj
  
-Простой тестовый сайт с возможностью добавления и просмотра товаров, создания заказов и отчётов о продажах. Присутствует аутентификация.
-![1](https://user-images.githubusercontent.com/94641349/148385772-e77ccb2f-9b37-4451-a291-d24f1b0a3b08.png)
-![2](https://user-images.githubusercontent.com/94641349/148385789-10f29b21-0a9c-4b02-bb34-63a136886d64.png)
-![3](https://user-images.githubusercontent.com/94641349/148385794-eacc501b-7024-4a40-9e54-20f7e3274eee.png)
-![4](https://user-images.githubusercontent.com/94641349/148385809-921a5427-8b4a-4ab9-8615-7268612ee2e4.png)
-![5](https://user-images.githubusercontent.com/94641349/148385819-547bb945-c71d-4f1b-ba41-a26a56393a59.png)
-![6](https://user-images.githubusercontent.com/94641349/148390876-1fdcf3ab-62c9-4524-9a95-6b77ef80afbf.png)
-![35357](https://user-images.githubusercontent.com/94641349/148385839-6adf6c3b-8ee9-4142-bbbd-2be044fbf1fb.png)
+Добавление и просмотр товаров, отзывы, регистрация и аутентификация, создание заказов и отчётов о продажах.
+![1](https://user-images.githubusercontent.com/94641349/151506544-c1e54bc0-1b0c-43b4-ba7b-832e045688a8.png)
+![2](https://user-images.githubusercontent.com/94641349/151506601-3fff0a9a-76bb-4842-89dd-872d84ce2039.png)
+![3](https://user-images.githubusercontent.com/94641349/151506615-d3882bf0-cc95-4f04-a1eb-abec4216273a.png)
+![4](https://user-images.githubusercontent.com/94641349/151506631-9e5e96d6-b746-4ec8-b9bb-05b94c002eb0.png)
+![5](https://user-images.githubusercontent.com/94641349/151506635-ecccc20e-0f65-4e2f-b4bc-96e61edf1978.png)
+![6](https://user-images.githubusercontent.com/94641349/151506645-9fee8563-e5be-457a-94ea-ff8b489ed817.png)
+![7](https://user-images.githubusercontent.com/94641349/151506651-cd77bcd8-2e74-477d-845a-ca76a745be3c.png)
+![8](https://user-images.githubusercontent.com/94641349/151507039-c85c6769-21e5-4b0a-9f4a-140a55511206.png)
