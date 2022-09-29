@@ -3,9 +3,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
+
 def logout_view(request):
     logout(request)
     return redirect('login')
+
 
 def login_view(request):
     error_message = None
@@ -24,13 +26,14 @@ def login_view(request):
                     return redirect('products:products')
         else:
             error_message = 'Произошла ошибка'
-    
+
     context = {
         'form': form,
         'error_message': error_message,
     }
 
     return render(request, 'auth/login.html', context)
+
 
 def registration_view(request):
     error_message = None
@@ -50,10 +53,10 @@ def registration_view(request):
                     return redirect('products:products')
         else:
             error_message = 'Произошла ошибка'
-    
+
     context = {
         'form': form,
         'error_message': error_message,
     }
 
-    return render(request, 'auth/registration.html', context)
+    return render(request, 'auth/sign_up.html', context)

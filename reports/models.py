@@ -2,6 +2,7 @@ from django.db import models
 from profiles.models import Profile
 from django.urls import reverse
 
+
 # Create your models here.
 
 class Report(models.Model):
@@ -20,4 +21,3 @@ class Report(models.Model):
 
     class Meta:
         ordering = ('-created',)
-    
