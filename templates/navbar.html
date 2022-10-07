@@ -31,7 +31,8 @@
         </div>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <li><a class="dropdown-item {% if request.path == path_to_my_profile %} active{% endif %}" href="{{path_to_my_profile}}">Профиль</a></li>
-          <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
+          <li><a class="dropdown-item" href="/admin/">Администрирование</a></li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
         </ul>
       </div>
     {% endif %}
