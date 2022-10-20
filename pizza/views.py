@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import authenticate, login, logout, get_user_model
+
+from pizza.forms import CustomAuthenticationForm, CustomUserCreationForm
+
+
+User = get_user_model()
 
 
 def logout_view(request):
@@ -11,9 +14,9 @@ def logout_view(request):
 
 def login_view(request):
     error_message = None
-    form = AuthenticationForm
+    form = CustomAuthenticationForm
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = CustomAuthenticationForm(data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -37,13 +40,13 @@ def login_view(request):
 
 def registration_view(request):
     error_message = None
-    form = UserCreationForm
+    form = CustomUserCreationForm
     if request.method == 'POST':
-        form = UserCreationForm(data=request.POST)
+        form = CustomUserCreationForm(data=request.POST)
         if form.is_valid():
+            form.save()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
-            user = User.objects.create_user(username=username, password=password)
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)

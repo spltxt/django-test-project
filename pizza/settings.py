@@ -44,8 +44,10 @@ INSTALLED_APPS = [
     'profiles',
     'reports',
     'sales',
+    'users',
+    'utils',
     # 3rd party
-    'crispy_forms'
+    'crispy_forms',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -86,13 +88,18 @@ WSGI_APPLICATION = 'pizza.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('POSTGRES_NAME'),
-        'USER': os.environ.get('POSTGRES_USER'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': 'db',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': os.environ.get('POSTGRES_NAME'),
+    #     'USER': os.environ.get('POSTGRES_USER'),
+    #     'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+    #     'HOST': 'db',
+    #     'PORT': '5432',
+    # }
+
 }
 
 
@@ -128,6 +135,7 @@ USE_TZ = True
 
 # AUTH
 LOGIN_URL = '/login/'
+AUTH_USER_MODEL = 'users.User'
 
 
 # Static files (CSS, JavaScript, Images)

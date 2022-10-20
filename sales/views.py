@@ -10,6 +10,8 @@ from .utils import get_customer_from_id, get_salesman_from_id, get_chart
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+
 # Create your views here.
 
 @login_required
@@ -38,7 +40,7 @@ def home_view(request):
             sales_df['created'] = sales_df['created'].apply(lambda x: x.strftime('%Y-%m-%d'))
             sales_df['updated'] = sales_df['updated'].apply(lambda x: x.strftime('%Y-%m-%d'))
             sales_df.rename({'customer_id': 'Customer',
-            'salesman_id': 'Salesman', 'id': 'sales_id'}, axis=1, inplace=True)
+                             'salesman_id': 'Salesman', 'id': 'sales_id'}, axis=1, inplace=True)
             positions_data = []
 
             for sale in sale_qs:
@@ -66,8 +68,7 @@ def home_view(request):
 
         else:
             no_data = 'В выбранном промежутке данных нет'
-        
-        
+
     context = {
         'search_form': search_form,
         'report_form': report_form,
@@ -80,10 +81,12 @@ def home_view(request):
     }
     return render(request, 'sales/home.html', context)
 
+
 class SaleListView(LoginRequiredMixin, ListView):
     model = Sale
     template_name = 'sales/main.html'
     # object_context_name
+
 
 class SaleDetailView(LoginRequiredMixin, DetailView):
     model = Sale
