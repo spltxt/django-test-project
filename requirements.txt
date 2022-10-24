@@ -36,3 +36,5 @@ tzdata==2021.5
 urllib3==1.26.7
 webencodings==0.5.1
 yarl==1.7.2
+
+seaborn~=0.12.1

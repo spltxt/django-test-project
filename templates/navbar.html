@@ -45,6 +45,14 @@
                     <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
                 </ul>
             </div>
+        {% else %}
+            <div>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Войти</a>
+                    </li>
+                </ul>
+            </div>
         {% endif %}
     </div>
 </nav>

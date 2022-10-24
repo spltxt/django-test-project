@@ -29,7 +29,7 @@ class User(AbstractUser):
         'Адрес электронной почты',
         max_length=150,
         unique=True,
-        help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.',
+        help_text='Обязательное поле. Только буквы, цифры и следующие символы: @/./+/-/_.',
         validators=[validators.validate_email],
         error_messages={
             'unique': "Пользователь с таким адресом электронной почты уже существует.",

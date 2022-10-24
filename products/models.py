@@ -4,10 +4,38 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+class ProductRating:
+    """
+    Рейтинг продукта
+    """
+
+    CHOICES = (
+        ("1", 1),
+        ("2", 2),
+        ("3", 3),
+        ("4", 4),
+        ("5", 5),
+    )
+
+
+class ProductCategory:
+    """
+    Категория продукта
+    """
+    PIZZA = 'Пицца'
+    DRINKS_AND_SNACKS = 'Напитки и закуски'
+
+    CATEGORY_CHOICES = (
+        (PIZZA, 'Пицца'),
+        (DRINKS_AND_SNACKS, 'Напитки и закуски')
+    )
+
+
 class Product(models.Model):
     name = models.CharField(max_length=120)
     image = models.ImageField(upload_to='products', default='no_picture.png')
     price = models.FloatField(help_text='рублей')
+    category = models.CharField(choices=ProductCategory.CATEGORY_CHOICES, max_length=50, default=ProductCategory.PIZZA)
     description = models.TextField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -20,19 +48,11 @@ class Product(models.Model):
         return self.reviews.count()
 
 
-RATING_CHOICES = (
-    ("1", 1),
-    ("2", 2),
-    ("3", 3),
-    ("4", 4),
-    ("5", 5),
-)
-
-
 class ProductReview(models.Model):
     product = models.ForeignKey(Product, related_name='reviews',
                                 on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField(blank=True, null=True)
-    rating = models.IntegerField(choices=RATING_CHOICES)
+    content = models.TextField('', blank=True, null=True)
+    rating = models.IntegerField('Рейтинг', choices=ProductRating.CHOICES)
     created = models.DateTimeField(auto_now_add=True)
+

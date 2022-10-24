@@ -1,21 +1,26 @@
-import uuid, base64
+import uuid
+import base64
 from customers.models import Customer
 from profiles.models import Profile
 from io import BytesIO
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
 def generate_code():
     code = str(uuid.uuid4()).replace('-', '').upper()[:12]
     return code
+
 
 def get_salesman_from_id(val):
     salesman = Profile.objects.get(id=val)
     return salesman.user.username
 
+
 def get_customer_from_id(val):
     customer = Customer.objects.get(id=val)
     return customer
+
 
 def get_graph():
     buffer = BytesIO()
@@ -27,6 +32,7 @@ def get_graph():
     buffer.close()
     return graph
 
+
 def get_key(res_by):
     if res_by == '#1':
         key = 'transaction_id'
@@ -34,9 +40,10 @@ def get_key(res_by):
         key = 'created'
     return key
 
+
 def get_chart(chart_type, data, results_by, **kwargs):
     plt.switch_backend('AGG')
-    fig = plt.figure(figsize=(10,4))
+    fig = plt.figure(figsize=(10, 4))
     key = get_key(results_by)
     d = data.groupby(key, as_index=False)['total_price'].agg('sum')
     if chart_type == '#1':

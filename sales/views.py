@@ -12,8 +12,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-# Create your views here.
-
 @login_required
 def home_view(request):
     sales_df = None
@@ -30,7 +28,6 @@ def home_view(request):
         date_to = request.POST.get('date_to')
         chart_type = request.POST.get('chart_type')
         results_by = request.POST.get('results_by')
-        # print(date_from, date_to, chart_type)
 
         sale_qs = Sale.objects.filter(created__date__lte=date_to, created__date__gte=date_from)
         if len(sale_qs) > 0:
@@ -60,7 +57,6 @@ def home_view(request):
             df = merged_df.groupby('transaction_id', as_index=False)['price'].agg('sum')
 
             chart = get_chart(chart_type, sales_df, results_by)
-            # print('chart', chart)
             sales_df = sales_df.to_html()
             positions_df = positions_df.to_html()
             merged_df = merged_df.to_html()
@@ -85,7 +81,7 @@ def home_view(request):
 class SaleListView(LoginRequiredMixin, ListView):
     model = Sale
     template_name = 'sales/main.html'
-    # object_context_name
+    context_object_name = 'sales'
 
 
 class SaleDetailView(LoginRequiredMixin, DetailView):

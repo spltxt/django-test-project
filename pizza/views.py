@@ -38,7 +38,7 @@ def login_view(request):
     return render(request, 'auth/login.html', context)
 
 
-def registration_view(request):
+def sign_up_view(request):
     error_message = None
     form = CustomUserCreationForm
     if request.method == 'POST':
@@ -55,7 +55,7 @@ def registration_view(request):
                 else:
                     return redirect('products:products')
         else:
-            error_message = 'Произошла ошибка'
+            error_message = 'Произошла ошибка. Пожалуйста, заполните форму ещё раз.'
 
     context = {
         'form': form,
