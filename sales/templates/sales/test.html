@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Формсетики
+{% endblock title %}
+
+{% block scripts %}
+    <script src="{% static 'sales/test.js' %}" defer></script>
+{% endblock scripts %}
+
+{% block content %}
+<h1>Оформить заказ</h1>
+    <hr>
+    <form id="form-container" method="POST">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <div class="product-form">
+                {{ form|crispy }}
+            </div>
+        {% endfor %}
+        <button id="add-form" type="button">Добавить продукт</button>
+        <button type="submit">Оформить заказ</button>
+    </form>
+{% endblock content %}

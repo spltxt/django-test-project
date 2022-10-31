@@ -1,15 +1,18 @@
 from typing import List
+
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from matplotlib.pyplot import get
-from .models import Sale
-from .forms import SalesSearchForm
+from .models import Sale, Position
+from .forms import SalesSearchForm, PositionFormSet
 from reports.forms import ReportForm
 import pandas as pd
 from .utils import get_customer_from_id, get_salesman_from_id, get_chart
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView
 
 
 @login_required
@@ -32,12 +35,10 @@ def home_view(request):
         sale_qs = Sale.objects.filter(created__date__lte=date_to, created__date__gte=date_from)
         if len(sale_qs) > 0:
             sales_df = pd.DataFrame(sale_qs.values())
-            sales_df['customer_id'] = sales_df['customer_id'].apply(get_customer_from_id)
-            sales_df['salesman_id'] = sales_df['salesman_id'].apply(get_salesman_from_id)
+            sales_df['customer_id'] = sales_df['customer_id'].apply(get_salesman_from_id)
             sales_df['created'] = sales_df['created'].apply(lambda x: x.strftime('%Y-%m-%d'))
             sales_df['updated'] = sales_df['updated'].apply(lambda x: x.strftime('%Y-%m-%d'))
-            sales_df.rename({'customer_id': 'Customer',
-                             'salesman_id': 'Salesman', 'id': 'sales_id'}, axis=1, inplace=True)
+            sales_df.rename({'customer_id': 'Покупатель', 'id': 'sales_id'}, axis=1, inplace=True)
             positions_data = []
 
             for sale in sale_qs:
@@ -83,7 +84,40 @@ class SaleListView(LoginRequiredMixin, ListView):
     template_name = 'sales/main.html'
     context_object_name = 'sales'
 
+    def get_queryset(self):
+        return Sale.objects.filter(customer=self.request.user.profile)
+
 
 class SaleDetailView(LoginRequiredMixin, DetailView):
     model = Sale
     template_name = 'sales/detail.html'
+
+
+class CreatePositionView(LoginRequiredMixin, CreateView):
+    model = Position
+    fields = ['product', 'quantity']
+    success_url = 'sales/'
+    template_name = 'sales/test.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['formset'] = PositionFormSet(queryset=Position.objects.none())
+        return context
+
+    def post(self, request, *args, **kwargs):
+        formset = PositionFormSet(request.POST)
+        if formset.is_valid():
+            return self.form_valid(formset)
+
+    def form_valid(self, formset):
+        instances = formset.save(commit=False)
+        to_be_created = []
+
+        for instance in instances:
+            instance.save()
+            to_be_created.append(instance.id)
+        sale = Sale.objects.create(customer=self.request.user.profile)
+        for position in to_be_created:
+            sale.positions.add(position)
+        return HttpResponseRedirect('/sales/sales-list/create-position/')
+

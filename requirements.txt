@@ -38,3 +38,4 @@ webencodings==0.5.1
 yarl==1.7.2
 
 seaborn~=0.12.1
+celery~=5.2.7

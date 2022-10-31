@@ -39,7 +39,6 @@ class User(AbstractUser):
     last_name = models.CharField('Фамилия', max_length=30, blank=True, null=True)
     role = models.CharField('Роль', choices=UserRole.ROLE_CHOICES, max_length=20,
                             default=UserRole.CUSTOMER, db_index=True)
-    email = models.EmailField('Адрес электронной почты', max_length=100)
     phone = models.CharField('Номер телефона', max_length=20, validators=[validate_phone_number],
                              blank=True, null=True)
     objects = UserManager()

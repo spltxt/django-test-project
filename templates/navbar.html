@@ -4,6 +4,7 @@
 {% url 'reports:main' as path_to_reports %}
 {% url 'profiles:my' as path_to_my_profile %}
 {% url 'products:products' as path_to_products %}
+{% url 'sales:create_sale' as path_to_create_sale %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ path_to_products }}"><img src="{% static 'logo.png' %}" class="logo-sm"></a>
@@ -15,8 +16,12 @@
                        href="{{ path_to_products }}">Товары</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {% if request.path == path_to_create_sale %} active{% endif %}"
+                       href="{{ path_to_create_sale }}">Оформить заказ</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {% if request.path == path_to_sales %} active{% endif %}"
-                       href="{{ path_to_sales }}">Список заказов</a>
+                       href="{{ path_to_sales }}">Список ваших заказов</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if request.path == path_to_reports %} active{% endif %}"
