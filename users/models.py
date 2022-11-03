@@ -39,6 +39,8 @@ class User(AbstractUser):
     last_name = models.CharField('Фамилия', max_length=30, blank=True, null=True)
     role = models.CharField('Роль', choices=UserRole.ROLE_CHOICES, max_length=20,
                             default=UserRole.CUSTOMER, db_index=True)
+    phone = models.CharField('Номер телефона', max_length=20, validators=[validate_phone_number],
+                             blank=True, null=True)
     objects = UserManager()
 
     def get_full_name(self):

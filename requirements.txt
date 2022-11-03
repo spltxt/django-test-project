@@ -39,5 +39,3 @@ yarl==1.7.2
 
 seaborn~=0.12.1
 celery~=5.2.7
-django-celery-beat==2.4.0
-redis==4.3.4

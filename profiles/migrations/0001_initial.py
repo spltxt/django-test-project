@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('avatar', models.ImageField(default='no_picture.png', upload_to='avatars')),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='users.user')),
+                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='auth.user')),
             ],
         ),
     ]

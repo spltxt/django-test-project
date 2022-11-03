@@ -8,9 +8,6 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def my_profile_view(request):
-    """
-    Вью профиля
-    """
     profile = Profile.objects.get(user=request.user)
     form = ProfileForm(request.POST or None, request.FILES
                        or None, instance=profile)

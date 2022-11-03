@@ -11,26 +11,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 class ReportListView(LoginRequiredMixin, ListView):
-    """
-    Вью списка отчётов
-    """
     model = Report
     template_name = 'reports/main.html'
 
 
 class ReportDetailView(LoginRequiredMixin, DetailView):
-    """
-    Детальный вью отчёта
-    """
     model = Report
     template_name = 'reports/detail.html'
 
 
 @login_required
 def create_report_view(request):
-    """
-    Вью создания отчёта
-    """
     if is_ajax(request):
         name = request.POST.get('name')
         remarks = request.POST.get('remarks')

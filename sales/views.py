@@ -17,9 +17,6 @@ from django.views.generic.edit import CreateView
 
 @login_required
 def home_view(request):
-    """
-    Вью статистики
-    """
     sales_df = None
     positions_df = None
     merged_df = None
@@ -41,15 +38,7 @@ def home_view(request):
             sales_df['customer_id'] = sales_df['customer_id'].apply(get_salesman_from_id)
             sales_df['created'] = sales_df['created'].apply(lambda x: x.strftime('%Y-%m-%d'))
             sales_df['updated'] = sales_df['updated'].apply(lambda x: x.strftime('%Y-%m-%d'))
-            sales_df.rename({
-                'customer_id': 'Покупатель',
-                'id': 'Заказ',
-                'transaction_id': 'Номер заказа',
-                'total_price': 'Общая стоимость заказа',
-                'created': 'Создан',
-                'updated': 'Обновлён',
-                'status': 'Статус заказа'
-            }, axis=1, inplace=True)
+            sales_df.rename({'customer_id': 'Покупатель', 'id': 'sales_id'}, axis=1, inplace=True)
             positions_data = []
 
             for sale in sale_qs:
@@ -64,15 +53,15 @@ def home_view(request):
                     positions_data.append(obj)
 
             positions_df = pd.DataFrame(positions_data)
-            # merged_df = pd.merge(sales_df, positions_df, on='sales_id')
+            merged_df = pd.merge(sales_df, positions_df, on='sales_id')
 
-            # df = merged_df.groupby('transaction_id', as_index=False)['price'].agg('sum')
+            df = merged_df.groupby('transaction_id', as_index=False)['price'].agg('sum')
 
             chart = get_chart(chart_type, sales_df, results_by)
             sales_df = sales_df.to_html()
             positions_df = positions_df.to_html()
-            # merged_df = merged_df.to_html()
-            # df = df.to_html()
+            merged_df = merged_df.to_html()
+            df = df.to_html()
 
         else:
             no_data = 'В выбранном промежутке данных нет'
@@ -82,8 +71,8 @@ def home_view(request):
         'report_form': report_form,
         'sales_df': sales_df,
         'positions_df': positions_df,
-        # 'merged_df': merged_df,
-        # 'df': df,
+        'merged_df': merged_df,
+        'df': df,
         'chart': chart,
         'no_data': no_data,
     }
@@ -91,9 +80,6 @@ def home_view(request):
 
 
 class SaleListView(LoginRequiredMixin, ListView):
-    """
-    Вью списка заказов текущего пользователя
-    """
     model = Sale
     template_name = 'sales/main.html'
     context_object_name = 'sales'
@@ -103,18 +89,11 @@ class SaleListView(LoginRequiredMixin, ListView):
 
 
 class SaleDetailView(LoginRequiredMixin, DetailView):
-    """
-    Детальный вью заказа
-    TODO: убрать возможность пользователям просматривать чужие заказы
-    """
     model = Sale
     template_name = 'sales/detail.html'
 
 
 class CreatePositionView(LoginRequiredMixin, CreateView):
-    """
-    Вью оформления заказа
-    """
     model = Position
     fields = ['product', 'quantity']
     success_url = 'sales/'

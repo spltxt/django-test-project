@@ -8,9 +8,6 @@ from products.forms import AddReviewForm
 
 
 class ProductListView(LoginRequiredMixin, ListView):
-    """
-    Вью просмотра списка товаров
-    """
     model = Product
     template_name = 'products/list.html'
     context_object_name = 'products'
@@ -20,13 +17,10 @@ class ProductListView(LoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self):
-        return Product.objects.annotate(avg_rating=Avg('reviews__rating')).order_by('-avg_rating')
+        return Product.objects.annotate(avg_rating=Avg('reviews__rating'))
 
 
 def product_detail_view(request, pk):
-    """
-    Детальный вью товара
-    """
     product = Product.objects.get(id=pk)
     form = AddReviewForm
 

@@ -39,7 +39,6 @@
             <h2 style="text-align: center;">Отзывы пользователей</h2>
             <hr>
             {% if request.user.is_authenticated %}
-                <p style="text-align: center">Оставить отзыв</p>
                 <form action="" method="POST">
                     {% csrf_token %}
                     {{ form|crispy }}
