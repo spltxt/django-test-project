@@ -3,6 +3,9 @@ import six
 
 
 class TokenGenerator(PasswordResetTokenGenerator):
+    """
+    Генерация токена для верификации почты
+    """
     def _make_hash_value(self, user, timestamp):
         return (
             six.text_type(user.pk) + six.text_type(timestamp) +

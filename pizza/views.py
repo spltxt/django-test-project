@@ -8,11 +8,17 @@ User = get_user_model()
 
 
 def logout_view(request):
+    """
+    Логаут вьюха
+    """
     logout(request)
     return redirect('login')
 
 
 def login_view(request):
+    """
+    Логин вьюха
+    """
     error_message = None
     form = CustomAuthenticationForm
     if request.method == 'POST':
@@ -39,6 +45,10 @@ def login_view(request):
 
 
 def sign_up_view(request):
+    """
+    Вьюха регистрации
+    TODO: Добавить верификацию почты
+    """
     error_message = None
     form = CustomUserCreationForm
     if request.method == 'POST':

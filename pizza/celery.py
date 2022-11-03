@@ -18,12 +18,15 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 # Load task modules from all registered Django apps.
 app.autodiscover_tasks()
 
-
 app.conf.beat_schedule = {
     'change_sale_status_to_finished': {
-        'task': 'change_sale_status_to_finished',
+        'task': 'sales.tasks.change_sale_status_to_finished',
         'schedule': crontab()
-    }
+    },
+    'sample_task': {
+        'task': "sales.tasks.sample_task",
+        'schedule': crontab(minute="*/1"),
+    },
 }
 
 app.conf.timezone = settings.TIME_ZONE

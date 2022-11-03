@@ -6,7 +6,7 @@ User = get_user_model()
 
 class ProductRating:
     """
-    Рейтинг продукта
+    Рейтинг товара
     """
 
     CHOICES = (
@@ -20,7 +20,7 @@ class ProductRating:
 
 class ProductCategory:
     """
-    Категория продукта
+    Категория товара
     """
     PIZZA = 'Пицца'
     DRINKS_AND_SNACKS = 'Напитки и закуски'
@@ -32,6 +32,9 @@ class ProductCategory:
 
 
 class Product(models.Model):
+    """
+    Модель Товар
+    """
     name = models.CharField(max_length=120)
     image = models.ImageField(upload_to='products', default='no_picture.png')
     price = models.FloatField(help_text='рублей')
@@ -49,10 +52,15 @@ class Product(models.Model):
 
 
 class ProductReview(models.Model):
+    """
+    Модель Отзыв на товар
+    """
     product = models.ForeignKey(Product, related_name='reviews',
                                 on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField('', blank=True, null=True)
     rating = models.IntegerField('Рейтинг', choices=ProductRating.CHOICES)
     created = models.DateTimeField(auto_now_add=True)
+
+
 

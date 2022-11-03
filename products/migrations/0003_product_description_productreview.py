@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('content', models.TextField(blank=True, null=True)),
                 ('rating', models.IntegerField()),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='auth.user')),
+                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.user')),
                 ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='products.product')),
             ],
         ),
