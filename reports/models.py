@@ -6,9 +6,12 @@ from django.urls import reverse
 # Create your models here.
 
 class Report(models.Model):
-    name = models.CharField(max_length=120)
+    """
+    Модель Отчёт
+    """
+    name = models.CharField(max_length=120, verbose_name='Наименование отчёта')
     image = models.ImageField(upload_to='reports', blank=True)
-    remarks = models.TextField()
+    remarks = models.TextField(verbose_name='Текст отчёта')
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

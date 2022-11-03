@@ -140,3 +140,4 @@ mydatabase
 LOG.txt
 media/*/
 celerybeat*
+data/

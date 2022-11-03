@@ -35,9 +35,9 @@ def get_graph():
 
 def get_key(res_by):
     if res_by == '#1':
-        key = 'transaction_id'
+        key = 'Номер заказа'
     elif res_by == '#2':
-        key = 'created'
+        key = 'Создан'
     return key
 
 
@@ -45,17 +45,13 @@ def get_chart(chart_type, data, results_by, **kwargs):
     plt.switch_backend('AGG')
     fig = plt.figure(figsize=(10, 4))
     key = get_key(results_by)
-    d = data.groupby(key, as_index=False)['total_price'].agg('sum')
+    d = data.groupby(key, as_index=False)['Общая стоимость заказа'].agg('sum')
     if chart_type == '#1':
-        # print('bar chart')
-        # plt.bar(d[key], d['total_price'])
-        sns.barplot(x=key, y='total_price', data=d)
+        sns.barplot(x=key, y='Общая стоимость заказа', data=d)
     elif chart_type == '#2':
-        # print('pie chart')
-        plt.pie(data=d, x='total_price', labels=d[key].values)
+        plt.pie(data=d, x='Общая стоимость заказа', labels=d[key].values)
     elif chart_type == '#3':
-        # print('line chart')
-        plt.plot(d[key], d['total_price'], color='green', marker='o', linestyle='dashed')
+        plt.plot(d[key], d['Общая стоимость заказа'], color='green', marker='o', linestyle='dashed')
     else:
         print('failed to identify the chart type!')
     plt.tight_layout()

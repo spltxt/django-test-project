@@ -1,10 +1,22 @@
 from celery import shared_task
-from sales.models import Sale, SaleStatus
+from celery.utils.log import get_task_logger
+
 from django.utils import timezone
 
+from sales.models import Sale, SaleStatus
+from pizza.celery import app
 
-@shared_task(name='change_sale_status_to_finished', queue='normal')
+
+logger = get_task_logger(__name__)
+
+
+@shared_task()
 def change_sale_status_to_finished():
-    for sale in Sale.objects.all():
+    """
+    Установить статус заказа "Завершён"
+    """
+    sales = Sale.objects.all()
+    for sale in sales:
         if sale.status == SaleStatus.IN_PROGRESS and (timezone.now() - sale.created).total_seconds() >= 3600:
             sale.status_to_finished()
+
