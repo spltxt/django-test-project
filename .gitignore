@@ -138,6 +138,5 @@ mydatabase
 .idea
 
 LOG.txt
-media/*/
 celerybeat*
 data/
