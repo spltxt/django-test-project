@@ -21,8 +21,8 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     'change_sale_status_to_finished': {
-        'task': 'change_sale_status_to_finished',
-        'schedule': crontab()
+        'task': 'sales.tasks.change_sale_status_to_finished',
+        'schedule': crontab(),
     }
 }
 

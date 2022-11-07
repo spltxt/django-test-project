@@ -44,7 +44,7 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.name}-{self.created.strftime('%d/%m/%Y')}"
+        return f"{self.name}"
 
     @property
     def review_count(self):

@@ -10,7 +10,7 @@ from pizza.celery import app
 logger = get_task_logger(__name__)
 
 
-@shared_task()
+@shared_task(name='sales.tasks.change_sale_status_to_finished')
 def change_sale_status_to_finished():
     """
     Установить статус заказа "Завершён"

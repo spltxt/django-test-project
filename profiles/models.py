@@ -11,8 +11,8 @@ class Profile(models.Model):
     Модель Профиль
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField()
-    avatar = models.ImageField(upload_to='avatars', default='no_picture.png')
+    bio = models.TextField(verbose_name='Информация')
+    avatar = models.ImageField(upload_to='avatars', default='no_picture.png', verbose_name='Аватар')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     phone = models.CharField('Номер телефона', max_length=20, validators=[validate_phone_number],
