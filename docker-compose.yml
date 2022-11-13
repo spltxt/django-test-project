@@ -9,10 +9,9 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - SECRET_KEY=django-insecure-kwg*lke9arp@#vs0@6fr+9lo_!(v@(4+efc)gh!ils&y*(j_@(
   web:
     build: .
-    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "python manage.py migrate && python manage.py initadmin && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     ports:
@@ -37,13 +36,12 @@ services:
       - .:/usr/src/app/
     links:
       - redis
-    environment:
-      - DEBUG=1
-      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
     depends_on:
       - redis
       - db
       - web
+    env_file:
+      - .env
   celery-beat:
     build: .
     entrypoint: celery
@@ -52,8 +50,7 @@ services:
       - .:/usr/src/app/
     links:
       - celery
-    environment:
-      - DEBUG=1
-      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
     depends_on:
       - celery
+    env_file:
+      - .env

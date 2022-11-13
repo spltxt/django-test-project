@@ -1,3 +1,7 @@
-from django.test import TestCase
+import pytest
+from django.test import Client
 
-# Create your tests here.
+from products.models import Product
+
+
+
